@@ -34,3 +34,7 @@ Thread id
 '''
 [Level][%y-%m-%d %H:%H:%s.%ms]\t[pid:thread_id]\t[file_name:line][%msg]
 '''
+
+Logger 日志器
+1、提供打印日志的方法
+2、提供日志输出的路径
