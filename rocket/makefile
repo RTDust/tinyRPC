@@ -18,10 +18,10 @@ PATH_RPC = $(PATH_ROCKET)/net/rpc
 PATH_TESTCASES = testcases
 
 # will install lib to /usr/lib/librocket.a
-PATH_INSTALL_LIB_ROOT = /usr/lib
+PATH_INSTALL_LIB_ROOT = /usr/local/lib
 
 # will install all header file to /usr/include/rocket
-PATH_INSTALL_INC_ROOT = /usr/include
+PATH_INSTALL_INC_ROOT = /usr/local/include
 
 PATH_INSTALL_INC_COMM = $(PATH_INSTALL_INC_ROOT)/$(PATH_COMM)
 PATH_INSTALL_INC_NET = $(PATH_INSTALL_INC_ROOT)/$(PATH_NET)
@@ -39,7 +39,7 @@ CXXFLAGS += -g -O0 -std=c++11 -Wall -Wno-deprecated -Wno-unused-but-set-variable
 
 CXXFLAGS += -I./ -I$(PATH_ROCKET)	-I$(PATH_COMM) -I$(PATH_NET) -I$(PATH_TCP) -I$(PATH_CODER) -I$(PATH_RPC)
 
-LIBS += /usr/lib/libprotobuf.a	/usr/lib/libtinyxml.a
+LIBS += /usr/local/lib/libprotobuf.a	/usr/local/lib/libtinyxml.a
 
 
 COMM_OBJ := $(patsubst $(PATH_COMM)/%.cc, $(PATH_OBJ)/%.o, $(wildcard $(PATH_COMM)/*.cc))
