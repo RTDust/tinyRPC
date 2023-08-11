@@ -1,7 +1,7 @@
-#include "rocket/common/log.h"
+#include "rocket/rocket/common/log.h"
 
 int main()
 {
-    DUBUGLOG("test log %s", "11");
+    DEBUGLOG("test log %s", "11");
     return 0;
 }
