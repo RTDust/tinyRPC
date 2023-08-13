@@ -8,16 +8,16 @@
 namespace rocket
 {
 
-    static Logger *g_Logger = new Logger();
+    static Logger *g_logger = nullptr;
 
     Logger *Logger::GetGlobalLogger()
     {
-        if (g_Logger)
+        if (g_logger)
         {
-            return g_Logger;
+            return g_logger;
         }
-        g_Logger = new Logger();
-        return g_Logger;
+        g_logger = new Logger();
+        return g_logger;
     }
 
     std::string LogLevelToString(LogLevel level)
@@ -58,7 +58,7 @@ namespace rocket
 
         ss << "[" << LogLevelToString(m_level) << "]\t"
            << "[" << time_str << "]\t"
-           << "[" << m_pid<<":"<<m_thread_id << "]\t"
+           << "[" << m_pid << ":" << m_thread_id << "]\t"
            << "[" << std::string(__FILE__) << ":" << __LINE__ << "]\t";
 
         return ss.str();
@@ -66,7 +66,7 @@ namespace rocket
 
     void Logger::pushLog(const std::string &msg)
     {
-        m_buffer.push(msg);
+        m_buffer.push_back(msg);
     }
 
     void Logger::log()
