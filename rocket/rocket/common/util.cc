@@ -16,7 +16,7 @@ namespace rocket
         {
             return g_pid;
         }
-        return getPid();
+        return getpid();
     }
 
     pid_t getThreadId()

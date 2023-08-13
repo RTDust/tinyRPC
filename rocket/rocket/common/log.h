@@ -25,11 +25,11 @@ namespace rocket
 
 #define DEBUGLOG(str, ...)                                                                                                    \
     std::string msg = (new rocket::LogEvent(rocket::LogLevel::Debug))->toString() + rocket::formatString(str, ##__VA_ARGS__); \
-    msg += "\n"; \
-    rocket::Logger::GetGlobalLogger()->pushLog(msg);\
-    rocket::Logger::GetGlobalLogger()->log();\
+    msg += "\n";                                                                                                              \
+    rocket::Logger::GetGlobalLogger()->pushLog(msg);                                                                          \
+    rocket::Logger::GetGlobalLogger()->log();
 
-    enum LogLevel
+    enum LogLevel // 日志级别枚举
     {
         Debug = 1,
         Info = 2,
@@ -53,6 +53,8 @@ namespace rocket
 
         std::queue<std::string> m_buffer;
     };
+
+    std::string LogLevelToString(LogLevel level);
 
     class LogEvent
     {
