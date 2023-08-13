@@ -25,8 +25,9 @@ namespace rocket
 
 #define DEBUGLOG(str, ...)                                                                                                    \
     std::string msg = (new rocket::LogEvent(rocket::LogLevel::Debug))->toString() + rocket::formatString(str, ##__VA_ARGS__); \
-    rocket::Logger::GetGlobalLogger()->pushLog(msg);                                                                          \
-    rocket::Logger::GetGlobalLogger()->log();
+    msg += "\n"; \
+    rocket::Logger::GetGlobalLogger()->pushLog(msg);\
+    rocket::Logger::GetGlobalLogger()->log();\
 
     enum LogLevel
     {
