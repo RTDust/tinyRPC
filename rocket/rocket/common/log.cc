@@ -35,6 +35,24 @@ namespace rocket
         }
     }
 
+    LogLevel StringToLogLevel(cosnt std::string &log_level)
+    {
+        if (log_level == "DEBUG")
+        {
+            return Debug;
+        }
+        else if (log_level == "INFO")
+        {
+            return Info;
+        }
+        else if (log_level == "ERROR")
+        {
+            return Error;
+        }
+        else
+            return Unknown;
+    }
+
     std::string LogEvent::toString()
     {
         struct timeval now_time;
