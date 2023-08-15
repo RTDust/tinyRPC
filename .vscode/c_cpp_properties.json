@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/rocket""${workspaceFolder}/rocket/common""${workspaceFolder}/rocket/net""${workspaceFolder}/rocket/net/tcp"
+                "${workspaceFolder}/rocket",
+                "${workspaceFolder}/rocket/rocket/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

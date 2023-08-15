@@ -4,6 +4,7 @@
 #include "rocket/net/tcp/tcp_connection.h"
 #include "rocket/net/coder/string_coder.h"
 #include "rocket/net/coder/tinypb_coder.h"
+#include "rocket/net/coder/abstract_protocol.h"
 
 namespace rocket
 {
