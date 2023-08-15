@@ -8,33 +8,32 @@
 #include "rocket/net/coder/abstract_protocol.h"
 #include "rocket/net/coder/tinypb_protocol.h"
 
-namespace rocket {
+namespace rocket
+{
 
-class TcpConnection;
+  class TcpConnection;
 
-class RpcDispatcher {
+  class RpcDispatcher
+  {
 
- public:
+  public:
+    static RpcDispatcher *GetRpcDispatcher();
 
-  static RpcDispatcher* GetRpcDispatcher();
+  public:
+    typedef std::shared_ptr<google::protobuf::Service> service_s_ptr;
 
- public:
+    void dispatch(AbstractProtocol::s_ptr request, AbstractProtocol::s_ptr response, TcpConnection *connection);
 
-  typedef std::shared_ptr<google::protobuf::Service> service_s_ptr;
+    void registerService(service_s_ptr service);
 
-  void dispatch(AbstractProtocol::s_ptr request, AbstractProtocol::s_ptr response, TcpConnection* connection);
+    void setTinyPBError(std::shared_ptr<TinyPBProtocol> msg, int32_t err_code, const std::string err_info);
 
-  void registerService(service_s_ptr service);
+  private:
+    bool parseServiceFullName(const std::string &full_name, std::string &service_name, std::string &method_name);
 
-  void setTinyPBError(std::shared_ptr<TinyPBProtocol> msg, int32_t err_code, const std::string err_info);
-
- private:
-  bool parseServiceFullName(const std::string& full_name, std::string& service_name, std::string& method_name);
-
- private:
-  std::map<std::string, service_s_ptr> m_service_map;
-};
-
+  private:
+    std::map<std::string, service_s_ptr> m_service_map;
+  };
 
 }
 

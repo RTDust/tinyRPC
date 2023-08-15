@@ -69,7 +69,7 @@ namespace rocket
         }
       }
 
-      if (i >= buffer->writeIndex())
+      if (i >= buffer->writeIndex()) // 读到最后一个字节，跳出while循环
       {
         DEBUGLOG("decode end, read all buffer data");
         return;
@@ -166,7 +166,7 @@ namespace rocket
     *tmp = TinyPBProtocol::PB_START;
     tmp++;
 
-    int32_t pk_len_net = htonl(pk_len);
+    int32_t pk_len_net = htonl(pk_len); // 将主机字节序转变为网络字节序（大端字节序）
     memcpy(tmp, &pk_len_net, sizeof(pk_len_net));
     tmp += sizeof(pk_len_net);
 

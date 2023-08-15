@@ -8,71 +8,71 @@
 #include "rocket/net/tcp/net_addr.h"
 #include "rocket/common/log.h"
 
-namespace rocket {
+namespace rocket
+{
 
-class RpcController : public google::protobuf::RpcController {
+  class RpcController : public google::protobuf::RpcController // 继承自RPC服务框架的父类
+  {
 
- public:
-  RpcController() { INFOLOG("RpcController"); } 
-  ~RpcController() { INFOLOG("~RpcController"); } 
+  public:
+    RpcController() { INFOLOG("RpcController"); }
+    ~RpcController() { INFOLOG("~RpcController"); }
 
-  void Reset();
+    void Reset();
 
-  bool Failed() const;
+    bool Failed() const;
 
-  std::string ErrorText() const;
+    std::string ErrorText() const;
 
-  void StartCancel();
+    void StartCancel();
 
-  void SetFailed(const std::string& reason);
+    void SetFailed(const std::string &reason);
 
-  bool IsCanceled() const;
+    bool IsCanceled() const;
 
-  void NotifyOnCancel(google::protobuf::Closure* callback);
+    void NotifyOnCancel(google::protobuf::Closure *callback);
 
-  void SetError(int32_t error_code, const std::string error_info);
+    void SetError(int32_t error_code, const std::string error_info);
 
-  int32_t GetErrorCode();
+    int32_t GetErrorCode();
 
-  std::string GetErrorInfo();
+    std::string GetErrorInfo();
 
-  void SetMsgId(const std::string& msg_id);
+    void SetMsgId(const std::string &msg_id);
 
-  std::string GetMsgId();
+    std::string GetMsgId();
 
-  void SetLocalAddr(NetAddr::s_ptr addr);
+    void SetLocalAddr(NetAddr::s_ptr addr);
 
-  void SetPeerAddr(NetAddr::s_ptr addr);
+    void SetPeerAddr(NetAddr::s_ptr addr);
 
-  NetAddr::s_ptr GetLocalAddr();
+    NetAddr::s_ptr GetLocalAddr();
 
-  NetAddr::s_ptr GetPeerAddr();
+    NetAddr::s_ptr GetPeerAddr();
 
-  void SetTimeout(int timeout);
+    void SetTimeout(int timeout);
 
-  int GetTimeout();
+    int GetTimeout();
 
-  bool Finished();
+    bool Finished();
 
-  void SetFinished(bool value);
- 
- private:
-  int32_t m_error_code {0};
-  std::string m_error_info;
-  std::string m_msg_id;
+    void SetFinished(bool value);
 
-  bool m_is_failed {false};
-  bool m_is_cancled {false};
-  bool m_is_finished {false};
+  private:
+    int32_t m_error_code{0};  // 错误码
+    std::string m_error_info; // 错误信息
+    std::string m_msg_id;
 
-  NetAddr::s_ptr m_local_addr;
-  NetAddr::s_ptr m_peer_addr;
+    bool m_is_failed{false};   // RPC调用是否成功
+    bool m_is_cancled{false};  // RPC调用是否取消
+    bool m_is_finished{false}; // RPC调用是否结束
 
-  int m_timeout {1000};   // ms
+    NetAddr::s_ptr m_local_addr;
+    NetAddr::s_ptr m_peer_addr;
 
-};
+    int m_timeout{1000}; // ms
+  };
 
 }
-
 
 #endif

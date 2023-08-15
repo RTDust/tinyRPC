@@ -43,7 +43,7 @@ namespace rocket
     {
         int32_t re;
         memcpy(&re, buf, sizeof(re));
-        return ntohl(re);
+        return ntohl(re); // 将网络字节序（大端字节序）转变为主机字节序
     }
 
 }
