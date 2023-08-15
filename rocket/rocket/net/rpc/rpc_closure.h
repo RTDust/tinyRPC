@@ -12,6 +12,7 @@
 namespace rocket
 {
 
+  /// @brief 执行回调函数
   class RpcClosure : public google::protobuf::Closure
   {
   public:
