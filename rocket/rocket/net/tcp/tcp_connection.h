@@ -10,6 +10,7 @@
 #include "rocket/net/coder/abstract_coder.h"
 #include "rocket/net/rpc/rpc_dispatcher.h"
 #include "rocket/net/eventloop.h"
+#include "rocket/net/coder/abstract_protocol.h"
 
 namespace rocket
 {

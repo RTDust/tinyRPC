@@ -25,7 +25,7 @@ namespace rocket
         m_fd_event = FdEventGroup::GetFdEventGroup()->getFdEvent(m_fd);
         m_fd_event->setNonBlock();
 
-        m_connection = std::make_shared<TcpConnection>(m_event_loop, m_fd, 128, peer_addr, nullptr, TcpConnectionByClient);
+        m_connection = std::make_shared<TcpConnection>(m_event_loop, m_fd, 128, peer_addr, nullptr, TcpConnectionByClient); // 指定作为客户端连接
         m_connection->setConnectionType(TcpConnectionByClient);
     }
 
@@ -37,7 +37,7 @@ namespace rocket
             close(m_fd);
         }
     }
-
+ 
     // 异步的进行 conenct
     // 如果connect 成功，done 会被执行
     void TcpClient::connect(std::function<void()> done)
@@ -66,7 +66,7 @@ namespace rocket
                                        {
                                            DEBUGLOG("connect [%s] sussess", m_peer_addr->toString().c_str());
                                            initLocalAddr();
-                                           m_connection->setState(Connected);
+                                           m_connection->setState(Connected); // 设置连接状态为：已连接
                                        }
                                        else
                                        {
@@ -91,7 +91,7 @@ namespace rocket
                                        // 如果连接完成，才会执行回调函数
                                        if (done)
                                        {
-                                           done();
+                                           done(); // 回调函数
                                        }
                                    });
                 m_event_loop->addEpollEvent(m_fd_event);
