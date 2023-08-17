@@ -19,7 +19,7 @@ namespace rocket
 #define NEWRPCCHANNEL(addr, var_name) \
   std::shared_ptr<rocket::RpcChannel> var_name = std::make_shared<rocket::RpcChannel>(rocket::RpcChannel::FindAddr(addr));
 
-#define CALLRPRC(add r, stub_name, method_name, controller, request, response, closure)                   \
+#define CALLRPRC(addr, stub_name, method_name, controller, request, response, closure)                    \
   {                                                                                                       \
     NEWRPCCHANNEL(addr, channel);                                                                         \
     channel->Init(controller, request, response, closure);                                                \
