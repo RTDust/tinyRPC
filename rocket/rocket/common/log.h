@@ -77,6 +77,8 @@ namespace rocket
 
     LogLevel StringToLogLevel(const std::string &log_level);
 
+    /// 异步的日志类
+    /// 加一个定时任务，当达到定时时间时，会把当前日志的buffer交换到异步日志的buffer里面，然后使用一个额外的日志线程去将异步日志类中的buffer进行打印
     class AsyncLogger
     {
 
@@ -86,12 +88,13 @@ namespace rocket
 
         void stop();
 
-        // 刷新到磁盘
+        // 刷新到磁盘——写入文件的时候，是先写入缓冲区，然后再写入磁盘。为避免日志丢失，需要强制刷新磁盘
         void flush();
 
         void pushLogBuffer(std::vector<std::string> &vec);
 
     public:
+        ///
         static void *Loop(void *);
 
     public:

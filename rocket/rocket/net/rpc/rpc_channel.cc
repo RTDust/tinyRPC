@@ -46,7 +46,7 @@ namespace rocket
                               google::protobuf::RpcController *controller, const google::protobuf::Message *request,
                               google::protobuf::Message *response, google::protobuf::Closure *done)
   {
-
+    //  （1）建立一个协议对象
     std::shared_ptr<rocket::TinyPBProtocol> req_protocol = std::make_shared<rocket::TinyPBProtocol>();
 
     RpcController *my_controller = dynamic_cast<RpcController *>(controller);
@@ -102,7 +102,7 @@ namespace rocket
       return;
     }
 
-    // requeset 的序列化
+    /// requeset 的序列化
     if (!request->SerializeToString(&(req_protocol->m_pb_data)))
     {
       std::string err_info = "failde to serialize";
@@ -114,22 +114,28 @@ namespace rocket
 
     s_ptr channel = shared_from_this();
 
+    // 设置一个定时任务，参数意义：超时时间、是否重复任务、回调函数
     TimerEvent::s_ptr timer_event = std::make_shared<TimerEvent>(my_controller->GetTimeout(), false, [my_controller, channel]() mutable
                                                                  {
     INFOLOG("%s | call rpc timeout arrive", my_controller->GetMsgId().c_str());
+    // 判断RPC调用是否成功
     if (my_controller->Finished()) {
       channel.reset();
       return;
     }
 
+    // 设置RPC标志位，标志该RPC被主动取消
     my_controller->StartCancel();
+    // 设置错误信息
     my_controller->SetError(ERROR_RPC_CALL_TIMEOUT, "rpc call timeout " + std::to_string(my_controller->GetTimeout()));
 
-    channel->callBack();
+    channel->callBack();//执行客户端回调函数
     channel.reset(); });
 
+    // 到了指定的定时时间，当成功读取到了回包之后，取消定时任务
     m_client->addTimerEvent(timer_event);
 
+    // 建立客户端连接对象，调用起connect方法建立TCP连接，并传入回调函数
     m_client->connect([req_protocol, this]() mutable
                       {
                         RpcController *my_controller = dynamic_cast<RpcController *>(getController());
