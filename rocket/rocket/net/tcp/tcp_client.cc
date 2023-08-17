@@ -37,7 +37,7 @@ namespace rocket
             close(m_fd);
         }
     }
- 
+
     // 异步的进行 conenct
     // 如果connect 成功，done 会被执行
     void TcpClient::connect(std::function<void()> done)
@@ -61,6 +61,7 @@ namespace rocket
                 m_fd_event->listen(FdEvent::OUT_EVENT,
                                    [this, done]()
                                    {
+                                       // 之前已经进行了一次连接，这里再次进行连接，根据connect函数的返回值来判断第一次连接是否成功
                                        int rt = ::connect(m_fd, m_peer_addr->getSockAddr(), m_peer_addr->getSockLen());
                                        if ((rt < 0 && errno == EISCONN) || (rt == 0))
                                        {
@@ -70,19 +71,19 @@ namespace rocket
                                        }
                                        else
                                        {
-                                           if (errno == ECONNREFUSED)
+                                           if (errno == ECONNREFUSED) // 如果对端关闭，则返回ERROR_PEER_CLOSED错误码
                                            {
                                                m_connect_error_code = ERROR_PEER_CLOSED;
                                                m_connect_error_info = "connect refused, sys error = " + std::string(strerror(errno));
                                            }
-                                           else
+                                           else // 否则就用ERROR_FAILED_CONNECT连接失败错误码，不知道失败具体原因
                                            {
                                                m_connect_error_code = ERROR_FAILED_CONNECT;
                                                m_connect_error_info = "connect unkonwn error, sys error = " + std::string(strerror(errno));
                                            }
                                            ERRORLOG("connect errror, errno=%d, error=%s", errno, strerror(errno));
-                                           close(m_fd);
-                                           m_fd = socket(m_peer_addr->getFamily(), SOCK_STREAM, 0);
+                                           close(m_fd);                                             // 关闭连接套接字，然后重新申请套接字
+                                           m_fd = socket(m_peer_addr->getFamily(), SOCK_STREAM, 0); // 重新申请的套接字
                                        }
 
                                        // 连接完后需要去掉可写事件的监听，不然会一直触发
@@ -179,6 +180,7 @@ namespace rocket
 
     void TcpClient::addTimerEvent(TimerEvent::s_ptr timer_event)
     {
+        // 添加定时任务
         m_event_loop->addTimerEvent(timer_event);
     }
 

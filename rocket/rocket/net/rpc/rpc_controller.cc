@@ -101,6 +101,8 @@ namespace rocket
     return m_peer_addr;
   }
 
+  /// @brief 设置超时时间
+  /// @param timeout 超时时间设置
   void RpcController::SetTimeout(int timeout)
   {
     m_timeout = timeout;
