@@ -29,7 +29,9 @@ namespace rocket
     }
   }
 
-  // 将 buffer 里面的字节流转换为 message 对象
+  /// @brief 将 buffer 里面的字节流转换为 message 对象
+  /// @param out_messages 获取到的message对象
+  /// @param buffer 缓冲区
   void TinyPBCoder::decode(std::vector<AbstractProtocol::s_ptr> &out_messages, TcpBuffer::s_ptr buffer)
   {
     while (1)
@@ -150,6 +152,10 @@ namespace rocket
     }
   }
 
+  /// @brief 进行序列化相关工作，主要是拼接对象字符串
+  /// @param message 需要发送的message对象
+  /// @param len 需要发送的数据长度
+  /// @return 序列化后的字符串
   const char *TinyPBCoder::encodeTinyPB(std::shared_ptr<TinyPBProtocol> message, int &len)
   {
     if (message->m_msg_id.empty())

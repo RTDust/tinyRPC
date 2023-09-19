@@ -109,10 +109,10 @@ namespace rocket
         std::string m_file_path; // 日志输出路径
         int m_max_file_size{0};  // 日志单个文件最大大小, 单位为字节
 
-        sem_t m_sempahore;
+        sem_t m_sempahore; // 信号量
 
         pthread_cond_t m_condtion; // 条件变量
-        Mutex m_mutex;
+        Mutex m_mutex;             // 互斥锁
 
         std::string m_date;         // 当前打印日志的文件日期
         FILE *m_file_hanlder{NULL}; // 当前打开的日志文件句柄

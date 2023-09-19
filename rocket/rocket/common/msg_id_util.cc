@@ -19,17 +19,18 @@ namespace rocket
         {
             if (g_random_fd == -1)
             {
+                //打开Linux下的一个随机文件，读取这个随机文件的句柄
                 g_random_fd = open("/dev/urandom", O_RDONLY);
             }
             std::string res(g_msg_id_length, 0);
-            if ((read(g_random_fd, &res[0], g_msg_id_length)) != g_msg_id_length)
+            if ((read(g_random_fd, &res[0], g_msg_id_length)) != g_msg_id_length)//读取g_msg_id_length长度的伪随机数用作msg_id
             {
                 ERRORLOG("read form /dev/urandom error");
                 return "";
             }
             for (int i = 0; i < g_msg_id_length; ++i)
             {
-                uint8_t x = ((uint8_t)(res[i])) % 10;
+                uint8_t x = ((uint8_t)(res[i])) % 10;//由于取出来的这个字符序列可能存在不可见字符，因此将其全部转换为ASCII数字
                 res[i] = x + '0';
                 t_max_msg_id_no += "9";
             }

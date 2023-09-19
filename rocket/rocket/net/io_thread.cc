@@ -44,7 +44,7 @@ namespace rocket
   {
     IOThread *thread = static_cast<IOThread *>(arg);
 
-    thread->m_event_loop = new EventLoop();
+    thread->m_event_loop = new EventLoop(); // 新创建一个EventLoop对象
     thread->m_thread_id = getThreadId();
 
     // 唤醒等待的线程
@@ -56,7 +56,7 @@ namespace rocket
 
     sem_wait(&thread->m_start_semaphore);
     DEBUGLOG("IOThread %d start loop ", thread->m_thread_id);
-    thread->m_event_loop->loop();
+    thread->m_event_loop->loop(); // 开启loop循环
 
     DEBUGLOG("IOThread %d end loop ", thread->m_thread_id);
 

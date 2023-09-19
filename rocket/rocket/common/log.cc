@@ -25,6 +25,7 @@ namespace rocket
         raise(signal_no);
     }
 
+    //获取全局日志对象Logger类
     Logger *Logger::GetGlobalLogger()
     {
         return g_logger;

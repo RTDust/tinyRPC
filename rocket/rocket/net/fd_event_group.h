@@ -22,7 +22,7 @@ namespace rocket
 
   private:
     int m_size{0};
-    std::vector<FdEvent *> m_fd_group;
+    std::vector<FdEvent *> m_fd_group;//通过vector容器保存fd事件
     Mutex m_mutex;
   };
 

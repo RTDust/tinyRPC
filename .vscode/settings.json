@@ -45,6 +45,13 @@
         "typeinfo": "cpp",
         "set": "cpp",
         "iostream": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "unordered_set": "cpp",
+        "ratio": "cpp",
+        "thread": "cpp"
     }
 }

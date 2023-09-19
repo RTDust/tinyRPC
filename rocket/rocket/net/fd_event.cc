@@ -37,7 +37,7 @@ namespace rocket
     return nullptr;
   }
 
-  void FdEvent::listen(TriggerEvent event_type, std::function<void()> callback, std::function<void()> error_callback /*= nullptr*/)
+    void FdEvent::listen(TriggerEvent event_type, std::function<void()> callback, std::function<void()> error_callback /*= nullptr*/)
   {
     if (event_type == TriggerEvent::IN_EVENT)
     {

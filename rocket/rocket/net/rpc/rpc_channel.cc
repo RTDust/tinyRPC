@@ -42,6 +42,12 @@ namespace rocket
     }
   }
 
+  /// @brief 回调函数
+  /// @param method 方法名
+  /// @param controller 控制器
+  /// @param request 请求体
+  /// @param response 响应体
+  /// @param done 
   void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
                               google::protobuf::RpcController *controller, const google::protobuf::Message *request,
                               google::protobuf::Message *response, google::protobuf::Closure *done)
@@ -72,6 +78,7 @@ namespace rocket
     {
       // 先从 runtime 里面取, 取不到再生成一个
       // 这样的目的是为了实现 msg_id 的透传，假设服务 A 调用了 B，那么同一个 msgid 可以在服务 A 和 B 之间串起来，方便日志追踪
+      //
       std::string msg_id = RunTime::GetRunTime()->m_msgid;
       if (!msg_id.empty())
       {

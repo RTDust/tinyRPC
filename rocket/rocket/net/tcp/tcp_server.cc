@@ -64,7 +64,7 @@ namespace rocket
         TcpConnection::s_ptr connetion = std::make_shared<TcpConnection>(io_thread->getEventLoop(), client_fd, 128, peer_addr, m_local_addr);
         connetion->setState(Connected);
 
-        m_client.insert(connetion);
+        m_client.insert(connetion);  
 
         INFOLOG("TcpServer succ get client, fd=%d", client_fd);
     }

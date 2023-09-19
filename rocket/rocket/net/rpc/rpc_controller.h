@@ -61,16 +61,16 @@ namespace rocket
   private:
     int32_t m_error_code{0};  // 错误码
     std::string m_error_info; // 错误信息
-    std::string m_msg_id;
+    std::string m_msg_id;     // 保存RPC调用唯一标识码
 
     bool m_is_failed{false};   // RPC调用是否成功
     bool m_is_cancled{false};  // RPC调用是否取消
     bool m_is_finished{false}; // RPC调用是否结束
 
-    NetAddr::s_ptr m_local_addr;
-    NetAddr::s_ptr m_peer_addr;
+    NetAddr::s_ptr m_local_addr; // 本地IP地址
+    NetAddr::s_ptr m_peer_addr;  // 远程IP地址
 
-    int m_timeout{1000}; // ms
+    int m_timeout{1000}; // ms 超时时间
   };
 
 }

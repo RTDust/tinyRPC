@@ -129,6 +129,9 @@ namespace rocket
     {
         // 1. 把 message 对象写入到 Connection 的 buffer, done 也写入
         // 2. 启动 connection 可写事件
+        //每次发送或接收数据都会重复去修改epoll中的事件，是不是有点资源浪费了？
+        //读事件和写事件，尤其是写事件，因为fd基本都是满足可写的，所以一般只有在需要写数据的时候才监听写事件，写完数据删除掉，否则会一直触发epoll
+        //为什么会一直触发，因为这里采用的是水平触发。水平触发是只要存在这个fd，就会一直触发epoll
         m_connection->pushSendMessage(message, done);
         m_connection->listenWrite();
     }

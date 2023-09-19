@@ -26,6 +26,7 @@ namespace rocket
     stub_name(channel.get()).method_name(controller.get(), request.get(), response.get(), closure.get()); \
   }
 
+  /// @brief 针对客户端，封装TCP通信,发包收包等动作
   class RpcChannel : public google::protobuf::RpcChannel, public std::enable_shared_from_this<RpcChannel>
   {
 

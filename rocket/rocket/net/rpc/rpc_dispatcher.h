@@ -13,6 +13,7 @@ namespace rocket
 
   class TcpConnection;
 
+  /// @brief 针对服务端,主要是收包,分发给对应service的method
   class RpcDispatcher
   {
 

@@ -30,7 +30,7 @@ namespace rocket
 
     EventLoop *m_event_loop{NULL}; // 当前 io 线程的 loop 对象
 
-    sem_t m_init_semaphore;
+    sem_t m_init_semaphore; //
 
     sem_t m_start_semaphore;
   };

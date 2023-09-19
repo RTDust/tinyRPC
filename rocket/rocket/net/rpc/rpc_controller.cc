@@ -21,12 +21,14 @@ namespace rocket
   }
 
   /// @brief 返回RPC调用是否失败
-  /// @return
+  /// @return 失败则返回true，成功则返回false
   bool RpcController::Failed() const
   {
     return m_is_failed;
   }
 
+  /// @brief 获取调用RPC失败的错误信息
+  /// @return 返回具体的错误文本
   std::string RpcController::ErrorText() const
   {
     return m_error_info;
@@ -71,11 +73,15 @@ namespace rocket
     return m_error_info;
   }
 
+  /// @brief 设置RPC调用的ID
+  /// @param  msg_id RPC调用ID
   void RpcController::SetMsgId(const std::string &msg_id)
   {
     m_msg_id = msg_id;
   }
 
+  /// @brief 获取RPC id
+  /// @return 
   std::string RpcController::GetMsgId()
   {
     return m_msg_id;
